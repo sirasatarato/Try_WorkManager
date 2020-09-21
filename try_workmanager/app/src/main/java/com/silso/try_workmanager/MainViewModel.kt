@@ -11,5 +11,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun startProgress() {
         val request: OneTimeWorkRequest =
             OneTimeWorkRequest.Builder(ProgressWorker::class.java).build()
+
+        WorkManager.getInstance(getApplication()).enqueue(request)
     }
 }
