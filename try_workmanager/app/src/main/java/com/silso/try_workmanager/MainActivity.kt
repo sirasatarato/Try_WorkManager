@@ -15,5 +15,11 @@ class MainActivity : AppCompatActivity() {
         do_work_button.setOnClickListener{
             viewModel.startProgress()
         }
+
+        viewModel.progressData.observe(this, {
+            val progress: Int = it.progress.getInt("work", 0)
+            progressBar.progress = progress
+            show_progress_rate_text.text = "$progress%"
+        })
     }
 }

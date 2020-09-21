@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
@@ -22,6 +23,9 @@ class ProgressWorker(context: Context, workerParameters: WorkerParameters) :
     override fun doWork(): Result {
         try {
             for (i in 0..100) {
+                val data: Data = Data.Builder().putInt("work", i).build()
+                setProgressAsync(data)
+
                 showNotification(i)
                 Thread.sleep(100)
             }
