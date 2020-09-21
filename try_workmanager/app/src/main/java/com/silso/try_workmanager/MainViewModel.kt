@@ -6,12 +6,13 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
-    var workManager: WorkManager = WorkManager.getInstance(application.applicationContext)
+    private val workManager: WorkManager = WorkManager.getInstance(application.applicationContext)
+    private val request: OneTimeWorkRequest =
+        OneTimeWorkRequest.Builder(ProgressWorker::class.java).build()
+
+    
 
     fun startProgress() {
-        val request: OneTimeWorkRequest =
-            OneTimeWorkRequest.Builder(ProgressWorker::class.java).build()
-
-        WorkManager.getInstance(getApplication()).enqueue(request)
+        workManager.enqueue(request)
     }
 }
